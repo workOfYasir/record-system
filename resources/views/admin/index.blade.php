@@ -49,26 +49,42 @@
               <!-- Table row -->
               <div class="row">
                 <div class="col-12 table-responsive">
-                  <table class="table table-striped">
+                  <table class="table table-striped datatable">
                     <thead>
                     <tr>
                       <th>Days</th>
                       <th>Income</th>
+                      <th>Total Income</th>
                       <th>Expense</th>
                       <th>Borrow</th>
                       <th>Lend</th>
                     </tr>
                     </thead>
                     <tbody>
-                      @foreach($allDate as $dates)
+                      @php $income_moneys=0; 
+                      
+                      @endphp
+                      @foreach($allDate->sortBy('date') as $dates)
+                     
                     <tr>
-                      <td width="50px">{{$dates}}</td>
+                      <td width="50px"> {{ $dates}}</td>
                      <td width="50px">
                      @foreach($incomes as $income)
+                     <?php 
+                      if($dates==$income->date){
+                        $income_money=$income->money;
+                        $income_moneys+=$income->money;
+                      }
+                     ?>
                         @if($dates==$income->date)
                         {{$income->money}},
-                        @endif
-                     @endforeach
+                       @endif
+                     @endforeach 
+                     </td>
+                   <td width="50px">
+                     
+                       {{$income_moneys}}
+                      
                      </td>
                      <td width="50px">
                      @foreach($expenses as $expense)

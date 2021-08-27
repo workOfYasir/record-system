@@ -16,7 +16,7 @@ class ReportController extends Controller
         $borrows = Borrow::all();
         $expenses = Expense::with('childerns')->get();
         $incomes = Income::with('childerns')->get();
-        $borrowDate = Borrow::pluck('date');
+        $borrowDate = Borrow::distinct()->pluck('date');
         $expenseDate = Expense::pluck('date')->union($borrowDate);
         $allDate = Income::pluck('date')->union($expenseDate);
 
